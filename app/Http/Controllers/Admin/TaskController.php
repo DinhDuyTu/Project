@@ -62,11 +62,11 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        $attributes = $request->only([
-            'subject_id',
-            'name',
-            'description',
-        ]);
+        $attributes = [
+            'subject_id' => $request->get('subject_id'),
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+        ];
         $this->taskRepository->create($attributes);
 
         return redirect()->route('admin.tasks.index')->with('alert', trans('setting.add_task_success'));
@@ -82,7 +82,7 @@ class TaskController extends Controller
     {
         try {
             $task = $this->taskRepository->find($id);
-            $userTask = $task->users;
+            $userTask = $this->taskRepository->findUserByTask($id);
             $listUsers = $this->userRepository->getAll();
             $statusUser = DB::table('user_task')
                 ->where('task_id', $id)
@@ -182,11 +182,11 @@ class TaskController extends Controller
     {
 
         try {
-            $attributes = $request->only([
-                'subject_id',
-                'name',
-                'description',
-            ]);
+            $attributes = [
+                'subject_id' => $request->get('subject_id'),
+                'name' => $request->get('name'),
+                'description' => $request->get('description'),
+            ];
             $this->taskRepository->update($id, $attributes);
             
             return redirect()->route('admin.tasks.index')->with('alert', trans('setting.edit_task_success'));

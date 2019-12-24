@@ -11,4 +11,9 @@ class TaskRepository extends EloquentRepository implements TaskRepositoryInterfa
     {
         return Task::class;
     }
+
+    public function findUserByTask($id)
+    {
+        return $this->_model->find($id)->users;
+    }
 }
