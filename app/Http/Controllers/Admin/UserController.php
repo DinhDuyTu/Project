@@ -107,17 +107,11 @@ class UserController extends Controller
             $subjects = $this->subjectRepository->getAll();
             $tasks = $this->taskRepository->getAll();
             $userCourse = $userDetail->courses;
-            $userCourseDetail = DB::table('user_course')
-                ->where('user_id', $id)
-                ->get();
+            $userCourseDetail = $this->userRepository->getUserCourseDetail($id);
             $userSubject = $userDetail->subjects;
-            $userSubjectDetail = DB::table('user_subject')
-                ->where('user_id', $id)
-                ->get();
+            $userSubjectDetail = $this->userRepository->getUserSubjectDetail($id);
             $userTask = $userDetail->tasks;
-            $userTaskDetail = DB::table('user_task')
-                ->where('user_id', $id)
-                ->get();
+            $userTaskDetail = $this->userRepository->getUserTaskDetail($id);
 
             return view('admin.users.show', compact('userDetail', 'courses', 'userCourse', 'userCourseDetail', 
                 'userSubject', 'userSubjectDetail','userTask','userTaskDetail', 'subjects', 'tasks'));
@@ -125,80 +119,57 @@ class UserController extends Controller
             return redirect()->back()->with($e->getMessage());
         }
     }
+
     public function exportSubject($id)
     {
-        $listSubject = DB::table('course_subject')
-            ->where('course_id', '=', $id)
-            ->get();
+        $listSubject = $this->userRepository->getCourseSubjectByCourse($id);
         
         return response()->json(['listSubject' => $listSubject], config('configuser.json'));
     }
+
     public function finishCourse(Request $request, $id)
     {        
         $courseSubject = $this->courseRepository->find($request->course_id)->subjects;
         $count = config('configuser.count');
         foreach ($courseSubject as $value) {
-            $check = DB::table('user_subject')
-                ->where('user_id', $id)
-                ->where('subject_id', $value->id)
-                ->where('status', StatusUserCourse::Finished)
-                ->get();
+            $check = $this->userRepository->getCheckUserSubject($id, $value->id);
             if (count($check) >= config('configuser.check')) {
                 $count++;
             }
         }
         if ($count == count($courseSubject)) {
-            DB::table('user_course')
-                ->where('course_id', $request->course_id)
-                ->where('user_id', $id)
-                ->update(['status' => StatusUserCourse::Finished, 'updated_at' => now()]);
-
+            $this->userRepository->updateStatusUserCourseFinished($request->course_id, $id);
+            
             return redirect()->route('admin.users.show', $id)->with('alert', trans('setting.finish_course_success'));
         } else {
             return redirect()->route('admin.users.show', $id)->with('error', trans('setting.error_course_fail'));
         }
     }
+
     public function finishSubject(Request $request, $id)
     {
-        DB::table('user_subject')
-            ->where('subject_id', $request->subject_id)
-            ->where('user_id', $id)
-            ->update(['status' => StatusUserCourse::Finished, 'updated_at' => now()]);
-        $check = DB::table('user_course')
-            ->where('user_id', $id)
-            ->where('status', StatusUserCourse::Activity)
-            ->get();
+        $this->userRepository->updateStatusUserSubject($request->subject_id, $id);
+        $check = $this->userRepository->getUserCourseStatusActivity($id);
         foreach ($check as $value) {
             $process = $value->process;
             $course_id = $value->course_id;
         }
-        DB::table('user_course')
-            ->where('user_id', $id)
-            ->where('course_id', $course_id)
-            ->update(['process' => ++$process]);
+        $this->userRepository->updateProcessUserCourse($id, $course_id, $process);
 
         return redirect()->route('admin.users.show', $id);
     }
+
     public function finishTask(Request $request, $id)
     {
         try {
-            DB::table('user_task')
-                ->where('task_id', $request->task_id)
-                ->where('user_id', $id)
-                ->update(['status' => StatusUserCourse::Finished, 'updated_at' => now()]);
+            $this->userRepository->updateStatusUserTaskFinished($request->task_id, $id);
             $subject = $this->taskRepository->find($request->task_id)->subject_id;
-            $check = DB::table('user_subject')
-                ->where('subject_id', $subject)
-                ->where('user_id', $id)
-                ->get();
+            $check = $this->userRepository->getUserSubject($subject_id, $id);
             foreach ($check as $check) {
                 $process = $check->process;
             }
-            DB::table('user_subject')
-                ->where('subject_id', $subject)
-                ->where('user_id', $id)
-                ->update(['process' => ++$process]);
-
+            $this->userRepository->updateProcessUserSubject($subject, $id, $process);
+            
             return redirect()->route('admin.users.show', $id)->with('alert', trans('setting.assign_user_task_success'));
         } catch (Exception $e) {
             return redirect()->back()->with($e->getMessage());
@@ -208,14 +179,8 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->find($id);
-            $check = DB::table('user_course')
-                ->where('course_id', $request->course_id)
-                ->where('user_id', $id)
-                ->get();
-            $checkStatusUser = DB::table('user_course')
-                ->where('user_id', $id)
-                ->where('status', StatusUserCourse::Finished)
-                ->get();
+            $check = $this->userRepository->getUserCourse($request->course_id, $id);
+            $checkStatusUser = $this->userRepository->getUserCourseStatusFinished($id);
             if (count($checkStatusUser) >= config('configuser.checkStatusUser')) {
                 return redirect()->route('admin.users.show', $id)->with('error', trans('setting.check_status_user'));
             } else {
@@ -223,10 +188,7 @@ class UserController extends Controller
                     return redirect()->route('admin.users.show', $id)->with('error', trans('setting.check_user_course'));
                 } else {
                     $user->courses()->attach($request->course_id);
-                    $userSubject = DB::table('user_subject')
-                        ->where('user_id', $id)
-                        ->where('subject_id', $request->subject_id)
-                        ->get();
+                    $userSubject = $this->userRepository->getUserSubject($request->subject_id, $id);
                     if (count($userSubject) < config('configuser.userSubject')) {
                         $courseName = $this->courseRepository->find($request->course_id)->name;
                         $data = [
@@ -255,21 +217,12 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->find($id);
-            $check = DB::table('user_subject')
-                ->where('subject_id', $request->subject_id)
-                ->where('user_id', $id)
-                ->get();
-            $checkStatusUser = DB::table('user_subject')
-                ->where('user_id', $id)
-                ->where('status', StatusUserCourse::Activity)
-                ->get();
+            $check = $this->userRepository->getUserSubject($request->subject_id, $id);
+            $checkStatusUser = $this->userRepository->getUserSubjectStatusActivity($user_id);
             $course_id = $this->subjectRepository->find($request->subject_id)->courses;
             $count = config('configuser.count');
             foreach ($course_id as $course) {
-                $checkUserCourse = DB::table('user_course')
-                    ->where('user_id', $id)
-                    ->where('course_id', $course->id)
-                    ->get();
+                $checkUserCourse = $this->userRepository->getUserCourse($course->id, $id);
                 if (count($checkUserCourse) >= config('configuser.checkUserCourse')) {
                     $count++;
                 }
@@ -297,19 +250,10 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->find($id);
-            $check = DB::table('user_task')
-                    ->where('task_id', $request->task_id)
-                    ->where('user_id', $id)
-                    ->get();
-            $checkStatusUser = DB::table('user_task')
-                    ->where('user_id', $id)
-                    ->where('status', StatusUserCourse::Activity)
-                    ->get();
+            $check = $this->userRepository->getUserTask($request->task_id, $id);
+            $checkStatusUser = $this->userRepository->getUserTaskStatusActivity($id);
             $subject_id = $this->taskRepository->find($request->task_id)->subject_id;
-            $checkUserSubject = DB::table('user_subject')
-                    ->where('user_id', $id)
-                    ->where('subject_id', $subject_id)
-                    ->get();
+            $checkUserSubject = $this->userRepository->getUserSubject($subject_id, $id);
             if (count($checkUserSubject) >= config('configuser.checkUserSubject')) {
                 if (count($checkStatusUser) >= config('configuser.checkStatusUser')) {
                     return redirect()->route('admin.users.show', $id)->with('error', trans('setting.check_status_user'));
