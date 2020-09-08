@@ -36,7 +36,7 @@
                                                             <th>{{ trans('setting.categories') }}</th>
                                                             <th id="th-status" style="width: 10%;">{{ trans('setting.status') }}</th>
                                                             <th>{{ trans('setting.description') }}</th>
-                                                            <th id="th-option" style="width: 13%">{{ trans('setting.options') }}</th>
+                                                            <th id="th-option">{{ trans('setting.options') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -67,7 +67,7 @@
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                <p>{{ $course->description }}</p>
+                                                                <p class="cut-string">{{ $course->description }}</p>
                                                             </td>
                                                             <td>
                                                                 <form action="{{ route('admin.courses.destroy', $course->id) }}" method="post">

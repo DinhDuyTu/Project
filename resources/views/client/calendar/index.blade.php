@@ -1,5 +1,14 @@
 @extends('client.layouts.main')
 @section('content')
+<header class="insid-header">
+    <div class="top-menu">
+        @include('client.layouts.top-header')
+        @include('client.layouts.navbar')
+    </div>
+    <div class="header-title">
+        <h1>CALENDAR</h1>
+    </div>
+</header>
 <div class="main-content">
     <section class="divider bg-lightest">
         <div class="container">
@@ -13,56 +22,32 @@
         </div>
     </section>
 </div>
-{{-- <input type="hidden" id="calendarEvents" value="{{ json_encode($calendarEvents) }}"> --}}
-
-{{-- <input type="hidden" id="task-calendar" value="{{ json_encode($taskCalendar) }}"> --}}
 <input type="hidden" id="subject-calendar" value="{{ json_encode($subjectCalendar) }}">
-{{-- <input type="hidden" id="course-calendar" value="{{ json_encode($courseCalendar) }}"> --}}
+<input type="hidden" id="task-calendar" value="{{ json_encode($taskCalendar) }}">
 
 <script>
-
-    // var calendarEvents = new Array();
-    // var tasks = $("#task-calendar").val();
-    // tasks = JSON.parse(tasks);
-    // console.log(tasks);
-    // for(var i=0; i<tasks.length; i++) {
-    //     calendarEvents[i] = {
-    //         'title': tasks[i]['name'],
-    //         'start': tasks[i]['created_at'].slice(0, 10),
-    //         'end': tasks[i]['updated_at'].slice(0, 10),
-    //         'textColor': 'black',
-    //         'backgroundColor': '#33ccff',
-    //     };
-    // };
-
     var calendarEvents = new Array();
-    var subjects = $("#subject-calendar").val();
+    var subjects = document.getElementById('subject-calendar').value;
+    var tasks = document.getElementById('task-calendar').value;
     subjects = JSON.parse(subjects);
-    console.log(subjects);
-    for(var i = 0; i < subjects.length; i++) {
+    tasks = JSON.parse(tasks);
+    for(let i = 0; i < subjects.length; i++) {
         calendarEvents[i] = {
             'title': subjects[i]['name'],
             'start': subjects[i]['created_at'].slice(0, 10),
             'end': subjects[i]['updated_at'].slice(0, 10),
-            'textColor': 'black',
-            'backgroundColor': '#00e600',
+            'textColor': 'white',
+            'backgroundColor': '#F2552C',
         };
     }
-
-    // var calendarEvents2 = new Array();
-    // var courses = $("#course-calendar").val();
-    // courses = JSON.parse(courses);
-    // console.log(courses);
-    // for(var i=0; i<courses.length; i++) {
-    //     calendarEvents2[i] = {
-    //         'title': courses[i]['name'],
-    //         'start': courses[i]['created_at'].slice(0, 10),
-    //         'end': courses[i]['updated_at'].slice(0, 10),
-    //         'textColor': 'black',
-    //         'backgroundColor': '#ff8000',
-    //     };
-    // }
-
-    // calendarEvents = calendarEvents.concat(calendarEvents1, calendarEvents2);
+    for (let i = subjects.length; i < subjects.length + tasks.length; i++) {
+        calendarEvents[i] = {
+            'title': tasks[i]['name'],
+            'start': tasks[i]['created_at'].slice(0, 10),
+            'end': tasks[i]['updated_at'].slice(0, 10),
+            'textColor': 'white',
+            'backgroundColor': '#091A2F',
+        };
+    }
 </script>
 @endsection

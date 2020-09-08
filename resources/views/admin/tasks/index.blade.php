@@ -29,7 +29,7 @@
                                                             <th>{{ trans('setting.name') }}</th>
                                                             <th>{{ trans('setting.subject') }}</th>
                                                             <th>{{ trans('setting.description') }}</th>
-                                                            <th id="th-option">{{ trans('setting.options') }}</th>
+                                                            <th id="th-option" style="min-width: 170px;">{{ trans('setting.options') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -45,7 +45,7 @@
                                                             </td>
                                                             <td>{{ $task->subject->name }}</td>
                                                             <td>
-                                                                <p>{{ $task->description }}</p>
+                                                                <p class="cut-string">{{ $task->description }}</p>
                                                             </td>
                                                             <td>
                                                                 <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="post">

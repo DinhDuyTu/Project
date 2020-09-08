@@ -1,216 +1,309 @@
-<div class="single-service">
-    <img src="" alt="">
-    <h3 class="text-theme-colored">{{ $subject->name }}</h3>
-    <p>{{ $subject->description }}</p>
-    <br>
-    {{-- @if($permiss == 1) --}}
-    @if ($permiss == config('client.user.false'))
-        @foreach ($subject->users as $user)
-            @if (Auth::user()->id == $user->id)
-                <p>{{ trans('layouts.complete')}} {{ ': ' . $user->pivot->process . '/' . $subject->tasks->count() }}</p>
-                <h4 class="line-bottom mt-20 mb-20 text-theme-colored">{{ trans('layouts.all') }}</h4>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade in active" id="small">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td class="text-center font-16 font-weight-600 bg-theme-color-2 text-white" colspan="4">{{ trans('layouts.all') }}</td>
-                            </tr>
-                            <tr>
-                                <th class="col-xs-1">{{ trans('layouts.name') }}</th>
-                                <th>{{ trans('layouts.content') }}</th>
-                                <th class="col-xs-1">{{ trans('layouts.status') }}</th>
-                                <th class="col-xs-1">{{ trans('layouts.comment') }}</th>
-                            </tr>
-                            <tbody>
-                                @foreach ($tasks as $task)
-                                <tr>
-                                    <td>{{ $task->name }}</td>
-                                    <td>{{ $task->description }}</td>
-                                    <td>
-                                    @php $status = config('client.user.false') @endphp
-                                    @foreach ($task->users as $user)
-                                        @if (Auth::user()->id == $user->pivot->user_id)
-                                            @if ($user->pivot->status == config('client.user.true'))
-                                                <button id="task{{ $task->id }}" data-toggle="modal" data-target="#modal{{ $task->id }}" class="btn btn-success text-center btn-report">{{ trans('layouts.completed') }}</button>
-                                                @php $status = config('client.user.true') @endphp
-                                            @elseif ($user->pivot->status == config('client.user.false'))
-                                                <button id="task{{ $task->id }}" data-toggle="modal" data-target="#modal{{ $task->id }}" class="btn btn-warning text-center btn-report">{{ trans('layouts.wait') }}</button>
-                                                @php $status = config('client.user.true') @endphp
-                                            @endif
-                                            <div class="modal fade" id="modal{{ $task->id }}">
-                                                <div class="modal-dialog bg-white widget border-1px p-30">
-                                                    <h5 class="widget-title line-bottom">{{ trans('layouts.report') }}</h5>
-                                                    <form method="POST">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <textarea name="report" id="report{{ $task->id }}" class="form-control" rows="config('client.client.row')"></textarea>
+{{-- @extends('client.layouts.main')
+@section('content')
+    <header class="insid-header">
+        <div class="top-menu">
+            @include('client.layouts.top-header')
+            @include('client.layouts.navbar')
+        </div>
+        <div class="header-title">
+            <h1>CLASSROOM SOCIAL GROUP</h1>
+        </div>
+        <div class="dashbord">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-dropbox" aria-hidden="true"></i></a>
+                                <div class="dropbox dropdown-menu">
+                                    <div class="col-sm-6  col-md-4">
+                                        <div class="more-files">
+                                            <h2>More Files From Daniel</h2>
+                                            <ul>
+                                                <li>
+
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Basic History Of UI Design</a>
+                                                    <p>January 20,2017 at 9:00 pm</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-8">
+                                        <div class="dropbox-update">
+                                            <h2>Write an update...</h2>
+                                            <div class="file-mg">
+                                                <ul>
+                                                    <li><a href="#"><i class="fa fa-upload" aria-hidden="true"></i> Upload</a></li>
+                                                    <li><a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> My files</a></li>
+                                                    <li><a href="#"><i class="fa fa-link" aria-hidden="true"></i> Links</a></li>
+                                                </ul>
+                                                <a href="#">Post</a>
+                                            </div>
+                                            <div class="file-content">
+                                                <div class="file-content3">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <img src="{{ asset('assets/client/assets/img/dropbox-img.jpg') }}" alt="dropbox-img"/>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <span data-dismiss="modal" class="btn btn-dark btn-theme-colored btn-sm mt-0">{{ trans('layouts.close') }}</span>
+                                                        <div class="col-md-10">
+                                                            <p>Daniel Smith has submitted class summary and the students are requested to check it.</p>
                                                         </div>
-                                                    </form>
+                                                    </div>
+                                                </div>
+                                                <div class="file-content2">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="images">
+                                                                <img src="{{ asset('assets/client/assets/img/ui-ux-img.jpg') }}" alt="ui-ux"/>
+                                                            </div>
+                                                            <div class="text">
+                                                                <strong>UI/UX Advanced level part-05</strong><br/>
+                                                                115kB<br/>
+                                                                By Daniel Smith
+                                                            </div>
+                                                            <a href="#">Download</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="file-content2">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="images">
+                                                                <img src="{{ asset('assets/client/assets/img/ui-ux-img.jpg') }}" alt="ui-ux"/>
+                                                            </div>
+                                                            <div class="text">
+                                                                <strong>UI/UX Advanced level part-05</strong><br/>
+                                                                115kB<br/>
+                                                                By Daniel Smith
+                                                            </div>
+                                                            <a href="#">Download</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="file-content2">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="images">
+                                                                <img src="{{ asset('assets/client/assets/img/ui-ux-img.jpg') }}" alt="ui-ux"/>
+                                                            </div>
+                                                            <div class="text">
+                                                                <strong>UI/UX Advanced level part-05</strong><br/>
+                                                                115kB<br/>
+                                                                By Daniel Smith
+                                                            </div>
+                                                            <a href="#">Download</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="file-content2">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <a href="#" class="view-btn">View More</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        @endif
-                                    @endforeach
-                                    @if ($status == config('client.user.false'))
-                                        <a id="btn{{ $task->id }}" data-toggle="modal" data-target="#modal{{ $task->id }}" class="btn btn-info text-center btn-report">{{ trans('layouts.report') }}</a>
-                                        <div class="modal fade" id="modal{{ $task->id }}">
-                                            <div class="modal-dialog bg-white widget border-1px p-30">
-                                                <h5 class="widget-title line-bottom">{{ trans('layouts.report') }}</h5>
-                                                <form class="formReport">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <textarea name="report" class="form-control" id="report{{ $task->id }}" required placeholder="Enter report ..." rows="config('client.client.row')"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <button class="a" type="button" id="task{{ $task->id }}" class="btn btn-dark btn-theme-colored btn-sm mt-0">{{ trans('layouts.send') }}</button>
-                                                        <span data-dismiss="modal" class="btn btn-dark btn-theme-colored btn-sm mt-0">{{ trans('layouts.close') }}</span>
-                                                    </div>
-                                                </form>
-                                            </div>
                                         </div>
-                                    @endif
-                                    </td>
-                                    <td><a id="cmt{{ $task->id }}" data-toggle="modal" data-target="#modalR{{ $task->id }}" class="btn btn-success">{{ trans('layouts.comment') }}</a>
-                                        <div class="modal fade" id="modalR{{ $task->id }}">
-                                            <div class="modal-dialog bg-white widget border-1px p-30">
-                                                <h5 class="widget-title line-bottom">{{ trans('layouts.report') }}</h5>
-                                                <form method="POST">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <textarea name="report" id="comment{{ $task->id }}" class="form-control" disabled rows="config('client.client.row')"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <span data-dismiss="modal" class="btn btn-dark btn-theme-colored btn-sm mt-0">{{ trans('layouts.close') }}</span>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-bell-o" aria-hidden="true"></i> <sup>10</sup></a></li>
+                            <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                    <i class="fa fa-cog" aria-hidden="true"></i></a>
+                                <div class="setting dropdown-menu">
+                                    <img src="{{ asset('assets/client/assets/img/dropdown-setting-img.jpg') }}" alt="dropdown-setting-img"/>
+                                    <div class="setting-ul">
+                                        <ul>
+                                            <li>
+                                                <div class="search-box">
+                                                    <input type="text" placeholder="Search Type"/>
+                                                    <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                                </div>
+                                            </li>
+                                            <li><a href="#">Quick Question <span>20</span></a></li>
+                                            <li><a href="#">Total Videos</a></li>
+                                            <li><a href="#">Video Lecture</a></li>
+                                            <li><a href="#">Assignment</a></li>
+                                            <li><a href="#">Notice Board</a></li>
+                                            <li><a href="#">Exams</a></li>
+                                            <li><a href="#">Results and Ranking</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            @endif
-        @endforeach
-    @endif
-</div>
-<script type="text/javascript">
-    //Show report
-    $("td button").on('click', function () {
-        var task_id = this.id;
-        task_id = task_id.replace('task', '');
-        var report = "#report" + task_id;
-        $.ajax({
-            type: 'POST',
-            url: '/report/show',
-            data: {
-                task_id: task_id,
-            },
-            success: function (response) {
-                $(report).val(response.result);
-                $(report).attr('disabled', '');
-            },
-            error: function(e) {
-                alert("Error! Please refresh");
-            }
-        });
-    });
-
-    //Show comment
-    $("td a").on('click', function () {
-        var task_id = this.id;
-        task_id = task_id.replace('cmt', '');
-        var comment = "#comment" + task_id;
-        $.ajax({
-            type: 'POST',
-            url: '/report/show',
-            data: {
-                task_id: task_id,
-            },
-            success: function (response) {
-                $(comment).val(response.result[0].comment);
-            },
-            error: function(e) {
-                alert("Error! Please refresh");
-            }
-        });
-    });
-
-    //Send report
-    $(".formReport button").on('click', function () {
-        var task_id = this.id;
-        task_id = task_id.replace('task', '');
-        var report = "#report" + task_id;
-        var btn = "#btn" + task_id;
-        var reportContent = $(report).val();
-        var btnSend = "#task" + task_id;
-        $.ajax({
-            type: 'POST',
-            url: '/report/store',
-            data: {
-                task_id: task_id,
-                report: reportContent,
-            },
-            success: function (response) {
-                $(btn).removeClass('btn-info');
-                $(btn).addClass('btn-warning');
-                $(btn).text('Waiting');
-                $(report).val(reportContent);
-                $(report).attr('disabled', '');
-                $(btnSend).remove();
-            },
-            error: function(e) {
-                alert("Error!");
-            }
-        });
-    });
-
-    // function sendReport(task_id, user_id) {
-    //     var report = "#report" + task_id;
-    //     var task = '#task' + task_id;
-    //     var btnSend = '#' + task_id;
-    //     var report = $("#report").val();
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/report/store',
-    //         data: {
-    //             user_id: user_id,
-    //             task_id: task_id,
-    //             report: report,
-    //         },
-    //         success: function (response) {
-    //             $(task).removeClass('btn-info');
-    //             $(task).addClass('btn-warning');
-    //             $(report).val(report);
-    //             $(btnSend).remove();
-    //         },
-    //         error: function(e) {
-    //             alert("Error!");
-    //         }
-    //     });
-    // }
-
-    // function showReport(task_id, user_id) {
-    //     var report = "#report" + task_id;
-    //     var task = "#" + task_id;
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/report/show',
-    //         data: {
-    //             task_id: task_id,
-    //         },
-    //         success: function (response) {
-    //             $(report).val(response.report[0].report);
-    //         },
-    //         error: function(e) {
-    //             alert("Error! Please refresh");
-    //         }
-    //     });
-    // }
-
-</script>
-
+            </div>
+        </div>
+        <div class="header-img">
+            <img src="{{ asset('assets/client/assets/img/inside-header.jpg') }}" alt="inside-image"/>
+        </div>
+    </header>
+    <section class="classroom-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 wow fadeInLeft  animated">
+                    <div class="vedio-box">
+                        <img src="{{ $course->image }}" alt="vedio-img"/>
+                    </div>
+                    <div class="vedio-box-text">
+                        <ul>
+                            <li><span>Course name :</span> {{ $course->name }}</li>
+                            <li><span>Instructor :</span> Travil Davis ( IT Professional) </li>
+                            <li><span>Lecture No :</span> 12</li>
+                            <li><span>Length :</span> 2:30 Hours</li>
+                            <li><span>Language :</span> English</li>
+                            <li><div class="star"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i>  <span>4.5 Ratings ( 204 students enrolled )</span></div></li>
+                            <li><a href="#">Join Now</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="upcomming-container col-xs-12 col-sm-6 col-md-6 wow fadeInRight  animated">
+                    <h2>
+                        Upcoming Classes
+                    </h2>
+                    <div class="row">
+                        <ul>
+                            @foreach ($course->subjects as $subject)
+                            <li>
+                                <div class="upcommin-text-outer">
+                                    <div class="upcomming-img">
+                                        <img src="{{ asset('assets/client/assets/img/uc-img1.jpg') }}" alt="us-img"/>
+                                    </div>
+                                    <div class="upcommin-text">
+                                        <p><b><a href="">{{ $subject->name }}</a></b></p>
+                                        <p>{{ $subject->description }}</p>
+                                        <span><i class="fa fa-clock-o" aria-hidden="true"></i>  at 9: 00 p.m by Orion mimin</span>
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="discussion-contaniner">
+		<div class="container">
+			<div class="row">				
+				<div class="discussion">
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                            <h4>Discussion</h4>
+                            <div class="questions">
+                                <img src="{{ asset('assets/client/assets/img/dn-img.jpg') }}" alt="dn"> <span>Write your questions here...</span>
+                            </div>
+                            <div class="taype-select">
+                                <a class="btn btn-default btn-select options2">
+                                    <input type="hidden" class="btn-select-input" id="1" name="1" value="" />
+                                    <span class="btn-select-value">Select an Item</span>
+                                    <span class="btn-select-arrow fa fa-angle-down"></span>
+                                    <ul>
+                                        <li class="selected">Default Sorting</li>
+                                        <li>Option 1</li>
+                                        <li>Option 2</li>
+                                        <li>Option 3</li>
+                                        <li>Option 4</li>
+                                    </ul>
+                                </a>
+                            </div>
+                            
+                            <div class="discussion-comment">
+                                <ul>
+                                    <li>
+                                        <div class="comment-text1">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="comment-text1 reply">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img2.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="comment-text1">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="comment-text1 reply">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img2.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="comment-text1">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="comment-text1 reply">
+                                            <img src="{{ asset('assets/client/assets/img/comment-img2.jpg') }}" alt="comment"/>
+                                            <div class="text">
+                                                <strong>Adrite rowshan</strong>
+                                                <p>Is it perfect for others sides? I need two ways of it.</p>
+                                                <a href="#"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>	
+				</div>
+			</div>
+	</section>
+@endsection --}}

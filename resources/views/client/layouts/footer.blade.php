@@ -1,63 +1,36 @@
-<footer id="footer" class="footer divider layer-overlay overlay-dark-9">
+<footer>
+    <script lang="javascript">var __vnp = {code : 1730,key:'', secret : '6e84d5e0cac3f7e3772ac9f5364b9043'};(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async=true; ga.defer=true;ga.src = '//core.vchat.vn/code/tracking.js';var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
     <div class="container">
-        <div class="row border-bottom">
-            <div class="col-sm-6 col-md-3">
-                <div class="widget dark">
-                    <img class="mt-5 mb-20" alt="" src="{{ asset('bower_components/assets-client/images/logo-white-footer.png') }}">
-                    <p>{{ trans('layouts.address1') }}</p>
-                    <ul class="list-inline mt-5">
-                        <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-theme-color-2 mr-5"></i> <a class="text-gray" href="#">{{ trans('layouts.phone') }}</a> </li>
-                        <li class="m-0 pl-10 pr-10"> <i class="fa fa-envelope-o text-theme-color-2 mr-5"></i> <a class="text-gray" href="#">{{ trans('layouts.domain') }}</a> </li>
-                        <li class="m-0 pl-10 pr-10"> <i class="fa fa-globe text-theme-color-2 mr-5"></i> <a class="text-gray" href="#">{{ trans('layouts.yourdomain') }}</a> </li>
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flog"><img src="{{ asset('assets/client/assets/img/logo.png') }}" alt="f-logo" /></div>
             </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="widget dark">
-                    <h5 class="widget-title mb-10">{{ trans('layouts.call') }}</h5>
-                    <div class="text-gray">
-                        {{ trans('layouts.phone') }}
-                        <br>{{ trans('layouts.phone') }}
-                    </div>
-                </div>
+            <div class="col-12-12 col-sm-6 col-md-6">
+                <span class="address">123, Radio Station, San francisco<br>
+                 1234, new sm street<br>
+                 San francisco</span>
             </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="widget dark">
-                    <h4 class="widget-title">{{ trans('layouts.twitter') }}</h4>
-                    <div class="twitter-feed list-border clearfix" data-username="Envato" data-count="2"></div>
-                </div>
+            <div class="col-12-12 col-sm-6 col-md-6">
+                <span class="phone">Phone : +000 123 456 789<br>
+                    Fax : 11.880.000<br>
+                    E-mail: Info@example.cp,m</span>
             </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="widget dark">
-                    <h4 class="widget-title line-bottom-theme-colored-2">{{ trans('layouts.open') }}</h4>
-                    <div class="opening-hours">
-                        <ul class="list-border">
-                            <li class="clearfix"> <span>{{ trans('layouts.hour') }}</span>
-                                <div class="value pull-right">{{ trans('layouts.hour') }}</div>
-                            </li>
-                            <li class="clearfix"> <span>{{ trans('layouts.hour') }}</span>
-                                <div class="value pull-right">{{ trans('layouts.hour') }}</div>
-                            </li>
-                            <li class="clearfix"> <span>{{ trans('layouts.hour') }}</span>
-                                <div class="value pull-right">{{ trans('layouts.hour') }}</div>
-                            </li>
-                            <li class="clearfix"> <span>{{ trans('layouts.hour') }}</span>
-                                <div class="value pull-right">{{ trans('layouts.hour') }}</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom bg-black-333">
-        <div class="container pt-20 pb-20">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="font-11 text-black-777 m-0">{{ trans('layouts.copyright') }}</p>
+            <div class="col-md-12">
+                <div class="f-sicon">
+                    <h2>FOLLOW US ON</h2>
+                 <ul>
+                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                 </ul>
+              </div>
+                <div class="copyright">
+                    All Right Reserved 2017
                 </div>
             </div>
         </div>
     </div>
 </footer>
-{{-- <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a> --}}

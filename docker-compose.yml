@@ -1,0 +1,20 @@
+version: '2'
+services:
+  # web:
+  #   build: .
+  #   container_name: system
+  #   volumes:
+  #     - ./src:/app
+  #   ports:
+  #     - "90:80"
+  #   links:
+  #     - systemdb
+  systemdb:
+    image: mysql:5.7
+    container_name: systemdb
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3456:3306

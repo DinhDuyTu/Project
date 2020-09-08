@@ -232,4 +232,20 @@ class SubjectController extends Controller
         $tasksHistory = array_reverse($tasksHistory);
         return view('client.history.tasks', compact('tasksHistory', 'tasksSubject'));
     }
+
+    public function getListTask(Request $request)
+    {
+        $id = $request->id;
+        $list_task = $this->taskRepository->getAll()->where('subject_id', $id);
+
+        return response()->json($list_task, 200);
+    }
+
+    public function getTask(Request $request)
+    {
+        $id = $request->id;
+        $task = $this->taskRepository->find($id);
+
+        return response()->json($task, 200);
+    }
 }

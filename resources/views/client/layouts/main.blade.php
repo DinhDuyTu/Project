@@ -1,147 +1,104 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html lang="en">
+
+
+<!-- Mirrored from zcube.in/elearning/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 16 Apr 2018 15:58:02 GMT -->
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="StudyPress | Education & Courses HTML Template" />
-    <meta name="keywords" content="academy, course, education, education html theme, elearning, learning," />
-    <meta name="author" content="ThemeMascot" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ __('FTMS | Framgia Training Manage System') }}</title>
-    <link href="{{ asset('bower_components/assets-client/images/favicon.png') }}" rel="shortcut icon" type="image/png">
-    <link href="{{ asset('bower_components/assets-client/images/apple-touch-icon.png') }}" rel="apple-touch-icon">
-    <link href="{{ asset('bower_components/assets-client/images/apple-touch-icon-72x72.png') }}" rel="apple-touch-icon" sizes="72x72">
-    <link href="{{ asset('bower_components/assets-client/images/apple-touch-icon-114x114.png') }}" rel="apple-touch-icon" sizes="114x114">
-    <link href="{{ asset('bower_components/assets-client/images/apple-touch-icon-144x144.png') }}" rel="apple-touch-icon" sizes="144x144">
-    <link href="{{ asset('bower_components/assets-client/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/animate.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/css-plugin-collections.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bower_components/assets-client/css/style.css') }}" rel="stylesheet" type="text/css">
-    <link id="menuzord-menu-skins" href="{{ asset('bower_components/assets-client/css/menuzord-skins/menuzord-rounded-boxed.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bower_components/assets-client/css/style-main.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/preloader.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/custom-bootstrap-margin-padding.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/responsive.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/js/revolution-slider/css/settings.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bower_components/assets-client/js/revolution-slider/css/layers.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bower_components/assets-client/js/revolution-slider/css/navigation.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bower_components/assets-client/css/colors/theme-skin-color-set-1.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('bower_components/assets-client/css/mycss.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ asset('bower_components/assets-client/js/jquery-2.2.4.min.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/jquery-plugin-collection.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/revolution-slider/js/jquery.themepunch.tools.min.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/revolution-slider/js/jquery.themepunch.revolution.min.js') }}"></script>
-
-    <link href="{{ asset('bower_components/assets-client/fontawesome/css/brands.css') }}" rel="stylesheet">
-    <link href="{{ asset('bower_components/assets-client/fontawesome/css/fontawesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('bower_components/assets-client/fontawesome/css/solid.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('bower_components/jstree/dist/themes/default/style.min.css') }}" />
-    <script src="{{ asset('bower_components/jstree/dist/jstree.js') }}"></script>
-    <script src="{{ asset('bower_components/jstree/dist/jstree.min.js') }}"></script>
-
-    <script src="{{ asset('bower_components/chart.js/dist/Chart.min.js') }}"></script>
-
-    {{-- <link href="{{ asset('bower_components/bootstrap-treeview.js/bootstrap.css') }}" rel="stylesheet">
-    <script src="{{ asset('bower_components/bootstrap-treeview.js/jquery.js') }}"></script>
-    <script src="{{ asset('bower_components/bootstrap-treeview.js/bootstrap-treeview.js') }}"></script> --}}
-
-    <link rel="stylesheet" type="text/css" href="https://skywalkapps.github.io/bootstrap-notifications/stylesheets/bootstrap-notifications.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>E-Learning Bootstrap Theme</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="shortcut icon" href="{{ asset('assets/client/assets/img/ficon.png') }}">
+	<link rel="stylesheet" href="{{ asset('assets/client/assets/css/bootstrap.min.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('assets/client/assets/css/bootstrap-dropdownhover.min.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('assets/client/assets/font/css/font-awesome.min.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('assets/client/assets/css/animate.min.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('assets/client/assets/css/style.css') }}" type="text/css">
+	<link href="{{ asset('assets/client/assets/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/client/assets/owl-carousel/owl.theme.css') }}" rel="stylesheet">
+	{{-- Full Calendar Package --}}
+	<link href="{{ asset('full_calendar/packages/core/main.css') }}" rel='stylesheet' />
+	<link href="{{ asset('full_calendar/packages/daygrid/main.css') }}" rel='stylesheet' />
+	<link href="{{ asset('full_calendar/packages/timegrid/main.css') }}" rel='stylesheet' />
+	<link href="{{ asset('full_calendar/packages-premium/timeline/main.css') }}" rel='stylesheet' />
+	<link href="{{ asset('full_calendar/packages-premium/resource-timeline/main.css') }}" rel='stylesheet' />
+	<script src="{{ asset('full_calendar/packages/core/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages/interaction/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages/daygrid/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages/timegrid/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages-premium/timeline/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages-premium/resource-common/main.js') }}"></script>
+	<script src="{{ asset('full_calendar/packages-premium/resource-timeline/main.js') }}"></script>
 </head>
+
 <body>
-    <div id="wrapper" class="clearfix">
-        @include('client.layouts.header')
-        <div class="main-content">
-            @yield('content')
-        </div>
-        @include('client.layouts.footer')
-    </div>
-    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
-    <script type="text/javascript">
-        // Pusher.logToConsole = true;
-        // var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-        //     encrypted: true,
-        //     cluster: "ap1"
-        // });
-
-        // var channel = pusher.subscribe('NotificationEvent');
-        // channel.bind('send-message', function(data) {
-        //     var newNotificationHtml = '<a class="dropdown-item" href="#"><span>${data.title}</span><br><small>${data.content}</small></a>';
-
-        //     $('.menu-notification').prepend(newNotificationHtml);
-        //     alert(JSON.stringify(data));
-        // });
-
-        // var channel = pusher.subscribe('NotificationEvent');
-        // channel.bind('send-message', function(data) {
-        //     alert(JSON.stringify(data));
-        // });
-    </script>
-
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/custom.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.actions.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.carousel.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.kenburn.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.migration.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.navigation.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.parallax.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/assets-client/js/revolution-slider/js/extensions/revolution.extension.video.min.js') }}"></script>
-    <script src="{{ asset('bower_components/assets-client/js/custom.js') }}"></script>
-    <script type="text/javascript">
-    var notificationsWrapper = $('.dropdown-notifications');
-    var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
-    var notificationsCountElem = notificationsToggle.find('i[data-count]');
-    var notificationsCount = parseInt(notificationsCountElem.data('count'));
-    var notifications = notificationsWrapper.find('ul.dropdown-menu');
-
-
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-        cluster: 'ap1',
-        encrypted: true,
-    });
-
-    // Subscribe to the channel we specified in our Laravel Event
-    var channel = pusher.subscribe('NotificationEvent');
-
-    // Bind a function to a Event (the full Laravel class)
-    channel.bind('message1', function (data) {
-        var existingNotifications = notifications.html();
-        var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-        var newNotificationHtml =
-        `<li class="notification active">
-            <div class="media">
-                <div class="media-left">
-                    <div class="media-object">
-                        <img src="https://api.adorable.io/avatars/71/` + avatar + `.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
-                    </div>
-                </div>
-                <div class="media-body">
-                    <strong class="notification-title">` + data.title + `</strong>
-                    <p class="notification-desc">` + data.content + `</p>
-                    <div class="notification-meta">
-                        <small class="timestamp">about a minute ago</small>
-                    </div>
-                </div>
-            </div>
-        </li>`;
-        notifications.html(newNotificationHtml + existingNotifications);
-
-        notificationsCount += 1;
-        notificationsCountElem.attr('data-count', notificationsCount);
-        notificationsWrapper.find('.notif-count').text(notificationsCount);
-        notificationsWrapper.show();
-    });
-</script>
+    @include('client.layouts.loading')
+{{--	@include('client.layouts.header')--}}
+	@yield('content')
+	@include('client.layouts.footer')
+	<input type="hidden" name="eventPusher" id="eventPusher" value="{{ Auth::user()->id }}">
+	<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="{{ asset('assets/client/assets/js/jquery.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/bootstrap-dropdownhover.min.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/jquery.easing.min.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/jquery.fittext.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/wow.min.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/modernizr.html') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/main.html') }}"></script>
+	<script type="text/javascript" src="{{ asset('assets/client/assets/js/jquery.countTo.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/owl-carousel/owl.carousel.js') }}"></script>
+	<script src="{{ asset('assets/client/assets/js/custom.js') }}"></script>
+	<script src="{{ asset('js/app.js') }}"></script>
+	<script type="text/javascript">
+	    // Pusher.logToConsole = true;
+	    var pusher = new Pusher('8a6adeb53a54a1e5d748', {
+	        cluster: 'ap1',
+	        encrypted: true,
+	    });
+	    var count = 0;
+	    var channel = pusher.subscribe('NotificationEvent');
+	    var eventPusher = 'message' + $('#eventPusher').val();
+	    channel.bind('message1', function (data) {
+	        var avatar = '';
+	        var html = `<div class="media">
+                        <div class="media-left">
+                            <div class="media-object">
+                                <img src="/images/avatar/avatar-defult.jpeg" class="img-circle" alt="50x50">
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <strong class="notification-title">` + data.title + `</strong>
+                            <div class="notification-meta">
+                                <small class="timestamp">about a minute ago</small>
+                            </div>
+                        </div>
+                    </div>`
+              count++;
+            $('span.notif-count').text(count);
+	        $('div.menu-notification').prepend(html);
+	    });
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('full-event-calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'resourceTimeline' ],
+			now: new Date(),
+			header: {
+				left: 'title',
+				center: '',
+				right: 'today prev,next'
+			},
+			defaultView: 'dayGridMonth',
+			events: calendarEvents
+			});
+			calendar.render();
+		});
+	</script>
 </body>
 </html>
-
-

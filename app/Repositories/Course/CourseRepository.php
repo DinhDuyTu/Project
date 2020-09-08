@@ -26,4 +26,9 @@ class CourseRepository extends EloquentRepository implements CourseRepositoryInt
     {
         return Course::whereIn('category_id', $arr)->paginate(config('course.PagePaginate'));
     }
+
+    public function getCourse($limit)
+    {
+        return Course::latest('id')->take($limit)->get();
+    }
 }

@@ -66,7 +66,7 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    <p>{{ $subject->description }}</p>
+                                                                    <p class="cut-string">{{ $subject->description }}</p>
                                                                 </td>
                                                                 <td>
                                                                     <form action="{{ route('admin.subjects.destroy', $subject->id) }}" method="post">

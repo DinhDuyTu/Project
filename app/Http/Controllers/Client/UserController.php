@@ -145,6 +145,13 @@ class UserController extends Controller
         }
     }
 
+    public function getListTrainer()
+    {
+        $trainer = $this->userRepository->getAll()->where('role_id', 1);
+
+        return view('client.user.list-trainer', compact('trainer'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

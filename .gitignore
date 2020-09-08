@@ -3,11 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
-.env.backup
+.backup
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-public/bower_components/*

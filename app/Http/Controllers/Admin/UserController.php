@@ -10,7 +10,11 @@ use App\Repositories\Course\CourseRepositoryInterface;
 use App\Repositories\Subject\SubjectRepositoryInterface;
 use App\Repositories\Task\TaskRepositoryInterface;
 use App\Notifications\NotificationUser;
+use App\Notifications\TestNotification;
+use Pusher\Pusher;
 use DB;
+use Auth;
+
 class UserController extends Controller
 {
     private $userRepository;
@@ -188,20 +192,23 @@ class UserController extends Controller
                     return redirect()->route('admin.users.show', $id)->with('error', trans('setting.check_user_course'));
                 } else {
                     $user->courses()->attach($request->course_id);
-                    $userSubject = $this->userRepository->getUserSubject($request->subject_id, $id);
+                    $userSubject = DB::table('user_subject')
+                        ->where('user_id', $id)
+                        ->where('subject_id', $request->subject_id)
+                        ->get();
+
+                    $courseName = $this->courseRepository->find($request->course_id)->name;
+                    $data = [
+                        'title' => "You have been added to the course ".$courseName,
+                    ];
+                    $this->notificationAddUser($id, $data);
+                    $subjectName = $this->subjectRepository->find($request->subject_id)->name
+                    ;
+                    $data = [
+                        'title' => "You have been added to the subject ".$subjectName,
+                    ];
+                    $this->notificationAddUser($id, $data);
                     if (count($userSubject) < config('configuser.userSubject')) {
-                        $courseName = $this->courseRepository->find($request->course_id)->name;
-                        $data = [
-                            'name' => $courseName,
-                            'course_id' => $request->course_id,
-                        ];
-                        $user->notify(new NotificationUser($data));
-                        $subjectName = $this->subjectRepository->find($request->subject_id)->name;
-                        $data = [
-                            'name' => $subjectName,
-                            'course_id' => $request->course_id,
-                        ];
-                        $user->notify(new NotificationUser($data));
                         $user->subjects()->attach($request->subject_id);
 
                         return redirect()->route('admin.users.show', $id)->with('alert', trans('setting.check_user_subject'));
@@ -363,6 +370,25 @@ class UserController extends Controller
             return redirect()->back()->with($e->getMessage());
         }
     }
+
+    public function notificationAddUser($user_id, $data)
+    {
+        $user = $this->userRepository->find($user_id);
+        $user->notify(new TestNotification($data));
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true,
+        );
+        $pusher = new Pusher(
+            '8a6adeb53a54a1e5d748',
+            'dd0d1d9ea686b4aab052',
+            '1020659',
+            $options
+        );
+        $event = 'message' . $user_id;
+        $pusher->trigger('NotificationEvent', $event, $data);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

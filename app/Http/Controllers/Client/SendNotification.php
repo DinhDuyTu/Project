@@ -19,7 +19,7 @@ class SendNotification extends Controller
     public function store(Request $request)
     {
         $user_id = Auth::user()->id;
-        $user = User::find(1);
+        $user = User::find($user_id);
         $data = $request->only([
             'title',
             'content',
@@ -32,12 +32,12 @@ class SendNotification extends Controller
             // 'authEndpoint'=> 'http://myserver.com/pusher_jsonp_auth'
         );
         $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
+            '8a6adeb53a54a1e5d748',
+            'dd0d1d9ea686b4aab052',
+            '1020659',
             $options
         );
-        $event = 'message' . $user_id;
+        $event = 'message1';
         $pusher->trigger('NotificationEvent', $event, $data);
 
         return view('client.notification.send');

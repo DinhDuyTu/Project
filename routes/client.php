@@ -14,7 +14,7 @@
 Route::group(['middleware' => ['auth']], function () {
     Route::get('category/{category}/show', 'CategoryController@show')->name('category.show');
 
-    Route::group(['prefix' => 'courses'], function () {
+    Route::group(['prefix' => 'courses', 'middleware' => 'checkUserCourse'], function () {
         Route::get('/', 'CourseController@index')->name('course.index');
         Route::get('/{course}/show', 'CourseController@show')->name('course.show');
         Route::get('/{course}/history', 'CourseController@history')->name('course.history');
@@ -24,10 +24,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{subject}/history', 'SubjectController@history')->name('subject.history');
     });
 
-    Route::get('/users/{profile}/show', 'UserController@show')->name('user.show');
-
     Route::group(['prefix' => '/users'], function () {
         Route::post('/{user}/update', 'UserController@update')->name('user.update');
+        Route::get('/{profile}/show', 'UserController@show')->name('user.show');
+        Route::get('/list-trainer', 'UserController@getListTrainer')->name('user.trainer');
     });
 
     Route::group(['prefix' => '/report'], function () {
@@ -57,4 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/test', function () {
         return view('client.notification.test');
     });
+
+    Route::get('ajax/get_list_task_of_subject', 'SubjectController@getListTask');
+    Route::get('ajax/get_task', 'SubjectController@getTask');
 });

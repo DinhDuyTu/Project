@@ -20,8 +20,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $courses = $this->courseRepository->getCourseByTime();
         $users = $this->userRepository->getUserByRole(1);
+        $courses = $this->courseRepository->getCourse(8);
 
         return view('client.index', compact('courses', 'users'));
     }

@@ -82,6 +82,7 @@
                     @csrf
                     <select id="year_chart" name="year">
                         <option>Year</option>
+                        <option value="{{ $now['year'] }}">{{ $now['year'] }}</option>
                         <option value="{{ $now['year']-1 }}">{{ $now['year']-1 }}</option>
                         <option value="{{ $now['year']-2 }}">{{ $now['year']-2 }}</option>
                         <option value="{{ $now['year']-3 }}">{{ $now['year']-3 }}</option>
@@ -89,8 +90,9 @@
                 </form>
             </div>
         <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
-            <canvas id="myAreaChart1" width="100%" height="30"></canvas>
+            {{-- <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            <canvas id="myAreaChart1" width="100%" height="30"></canvas> --}}
+            <canvas id="myChart" width="100%" height="30"></canvas>
         </div>
         <div class="card-footer small text-muted">
         </div>
@@ -585,7 +587,7 @@
             </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-    </div> --}}
+    </div>
 
 </div>
 

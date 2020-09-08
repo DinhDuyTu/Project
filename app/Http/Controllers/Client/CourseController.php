@@ -28,7 +28,6 @@ class CourseController extends Controller
     public function index()
     {
         $courses = $this->courseRepository->getCourseByTime();
-
         $categories = $this->categoryRepository->getParentCategory();
 
         return view('client.course.index', compact('courses', 'categories'));

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{-- <div id="preloader">
     <div id="spinner">
         <div class="preloader-dot-loading">
@@ -101,78 +102,104 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <div class="widget no-border m-0 mr-15 pull-right flip sm-pull-none sm-text-center">
-                        <ul class="styled-icons icon-circled icon-sm pull-right flip sm-pull-none sm-text-center mt-sm-15">
-                            <li><a href="#"><i class="fa fa-facebook text-white"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter text-white"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus text-white"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram text-white"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin text-white"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-middle p-0 bg-lightest xs-text-center">
-        <div class="container pt-0 pb-0">
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-5">
-                    <div class="widget no-border m-0">
-                        <a class="menuzord-brand pull-left flip xs-pull-center mb-15" href="javascript:void(0)"><img src="{{ asset('bower_components/assets-client/images/logo-wide.png') }}" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="widget no-border pull-right sm-pull-none sm-text-center mt-10 mb-10 m-0">
-                        <ul class="list-inline">
-                            <li><i class="fa fa-phone-square text-theme-colored font-36 mt-5 sm-display-block"></i></li>
-                            <li>
-                                <a href="#" class="font-12 text-gray text-uppercase">{{ trans('layouts.call') }}</a>
-                                <h5 class="font-14 m-0">{{ _('+(012) 345 6789') }}</h5>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-3">
-                    <div class="widget no-border pull-right sm-pull-none sm-text-center mt-10 mb-10 m-0">
-                        <ul class="list-inline">
-                            <li><i class="fa fa-clock-o text-theme-colored font-36 mt-5 sm-display-block"></i></li>
-                            <li>
-                                <a href="#" class="font-12 text-gray text-uppercase">{{ trans('layouts.open') }}</a>
-                                <h5 class="font-13 text-black m-0"> {{ trans('layouts.hour') }}</h5>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-nav">
-        <div class="header-nav-wrapper navbar-scrolltofixed bg-theme-colored border-bottom-theme-color-2-1px">
+=======
+<header>
+    <!-- top-menu -->
+    <div class="top-menu">
+        <!-- top-header -->
+        <div class="top-header" style="padding: 10px">
             <div class="container">
-                <nav id="menuzord" class="menuzord bg-theme-colored pull-left flip menuzord-responsive">
-                    <ul class="menuzord-menu">
-                        <li class="active">
-                            <a href="{{ route('home') }}">{{ trans('layouts.home') }}</a>
-                        </li>
-                        <li><a href="{{ route('course.index') }}">{{ trans('layouts.courses') }}</a>
-                        </li>
-                        <li>
-                            <a href="">{{ trans('layouts.subject') }} <span class="label label-info">{{ trans('layouts.new') }}</span></a>
-                        </li>
-                        <li>
-                            <a href="#home">{{ trans('layouts.task') }}</a>
-                        </li>
-                        <li>
-                            <a href="#">{{ trans('layouts.active') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('calendar.show') }}">{{ trans('layouts.calendar') }}</a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="phone dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-globe" aria-hidden="true"></i> Language : English </a>
+                             <ul class="dropdown-menu">
+                                 <li><a href="#">English</a></li>
+                                <li><a href="#">Aribce</a></li>
+                            </ul>
+                        </div>
+>>>>>>> 2082e6baf8abc932a4e177cbef2c835555495539
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="social">
+                            <ul>
+                                <li><a href="login.html">Log In</a></li>
+                                <li>|</li>
+                                <li><a href="sign-up.html">Sign up</a></li>
+                                <li>|</li>
+                                <li><a href="register.html">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- /top-header -->
+        <!-- mainNav -->
+        <div id="mainNav" class="navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-inverse navbar-default">
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/client/assets/img/logo.png') }}" alt="logo"/></a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1" data-hover="dropdown" data-animations="fadeIn fadeInLeft fadeInUp fadeInRight">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('course.index') }}">Courses</a>
+                                </li>
+                                <li>
+                                    <a href="">Subjects</a>
+                                </li>
+                                <li>
+                                    <a href="teacher.html">Trainer</a>
+                                </li>
+                                <li>
+                                    <a href="student-portfolio.html">Calendar</a>
+                                </li>
+                                <li>
+                                    <a href="pricing.html"><span>Support</span></a>
+                                </li>
+                                <li>
+                                    <a href="contact.html"><span>Contact</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                            <!-- /.navbar-collapse -->
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /mainNav -->
     </div>
+    <!-- /top-menu -->
+
+    <div class="header-text">
+        <div class="col-xs-12 col-sm-5 col-md-5">
+        </div>
+        <div class="header-bg col-xs-12 col-sm-7 col-md-7">
+            <h1>DON’T HAVE SPACE ON CAMPUS? LET’S START ONLINE</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tellus faucibus vel hendrerit sed, aliquet a est. Cras dapibus nisl non metus viverra, ac convallis eros viverra.Lorem ipsum dolor sit </p>
+            <a href="#" class="header-btn">Find courses Now</a>
+        </div>
+    </div>
+
 </header>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\Subject\SubjectRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,10 +12,12 @@ use DB;
 class CalendarController extends Controller
 {
     protected $subjectRepository;
+    protected $taskRepository;
 
-    public function __construct(SubjectRepositoryInterface $subjectRepository)
+    public function __construct(SubjectRepositoryInterface $subjectRepository, TaskRepositoryInterface $taskRepository)
     {
         $this->subjectRepository = $subjectRepository;
+        $this->taskRepository = $taskRepository;
     }
     /**
      * Display a listing of the resource.
@@ -55,34 +58,32 @@ class CalendarController extends Controller
      */
     public function show()
     {
-        // $tasks = DB::table('user_task')->where('user_id', Auth::User()->id)->get();
-        // $taskCalendar = collect();
-        // foreach($tasks as $task) {
-        //     $task1['updated_at'] = $task->updated_at;
-        //     $task1['created_at'] = $task->created_at;
-        //     $task1['name'] = Task::find($task->task_id)->name;
-        //     $taskCalendar->push($task1);
-        // }
-
         $subjects = DB::table('user_subject')->where('user_id', Auth::User()->id)->get();
         $subjectCalendar = collect();
         foreach($subjects as $subject) {
-            $subject1['updated_at'] = $subject->updated_at;
             $subject1['created_at'] = $subject->created_at;
+            if ($subject->updated_at != null) {
+                $subject1['updated_at'] = $subject->updated_at;
+            } else {
+                $subject1['updated_at'] = now();
+            }
             $subject1['name'] = $this->subjectRepository->find($subject->subject_id)->name;
             $subjectCalendar->push($subject1);
         }
+        $tasks = DB::table('user_task')->where('user_id', Auth::User()->id)->get();
+        $taskCalendar = collect();
+        foreach($tasks as $task) {
+            $task1['created_at'] = $task->created_at;
+            if ($task->updated_at != null) {
+                $task1['updated_at'] = $task->updated_at;
+            } else {
+                $task1['updated_at'] = now();
+            }
+            $task1['name'] = $this->taskRepository->find($task->task_id)->name;
+            $taskCalendar->push($task1);
+        }
 
-        // $courses = DB::table('user_course')->where('user_id', Auth::User()->id)->get();
-        // $courseCalendar = collect();
-        // foreach($courses as $course) {
-        //     $course1['updated_at'] = $course->updated_at;
-        //     $course1['created_at'] = $course->created_at;
-        //     $course1['name'] = Course::find($course->course_id)->name;
-        //     $courseCalendar->push($course1);
-        // }
-
-        return view('client.calendar.index', compact('subjectCalendar'));
+        return view('client.calendar.index', compact('subjectCalendar', 'taskCalendar'));
     }
 
     /**
